@@ -16,6 +16,7 @@ struct MyTasksApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .accentColor(.red)
         }
     }
 }
