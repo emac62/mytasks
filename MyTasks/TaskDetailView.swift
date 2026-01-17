@@ -1,5 +1,7 @@
 import SwiftUI
 import CoreData
+import WidgetKit
+import UserNotifications
 
 struct TaskDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -134,16 +136,35 @@ struct TaskDetailView: View {
             newTask.isComplete = isComplete
             newTask.hasDueDate = hasDueDate
             newTask.dueDate = hasDueDate ? dueDate : nil
+            if !hasDueDate { newTask.dueDate = nil }
             newTask.createdOn = Date()
             do {
                 try viewContext.save()
+                WidgetCenter.shared.reloadAllTimelines()
+                updateAppBadge()
+                scheduleMidnightBadgeUpdate()
                 dismiss()
             } catch {
                 print("Error saving task: \(error)")
             }
         } else {
+            // Keep hasDueDate and dueDate in sync
+            if !observedTask.hasDueDate {
+                observedTask.dueDate = nil
+            } else if observedTask.dueDate == nil {
+                observedTask.dueDate = Date()
+            }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+            dateFormatter.timeZone = TimeZone.current
+            let dueDateString = observedTask.dueDate != nil ? dateFormatter.string(from: observedTask.dueDate!) : "nil"
+            print("[Edit] Saving task: title=\(observedTask.title), notes=\(observedTask.notes ?? "nil"), isComplete=\(observedTask.isComplete), hasDueDate=\(observedTask.hasDueDate), dueDate=\(dueDateString)")
             do {
                 try viewContext.save()
+                WidgetCenter.shared.reloadAllTimelines()
+                updateAppBadge()
+                scheduleMidnightBadgeUpdate()
                 dismiss()
             } catch {
                 print("Error saving task: \(error)")
@@ -157,9 +178,100 @@ struct TaskDetailView: View {
         viewContext.delete(observedTask)
         do {
             try viewContext.save()
+            WidgetCenter.shared.reloadAllTimelines()
+            updateAppBadge()
+            scheduleMidnightBadgeUpdate()
             dismiss()
         } catch {
             print("Error deleting task: \(error)")
+        }
+    }
+
+    private func updateAppBadge() {
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.sortDescriptors = []
+        do {
+            let allTasks = try viewContext.fetch(fetchRequest)
+            let today = Calendar.current.startOfDay(for: Date())
+            print("[Debug] All tasks (", allTasks.count, "):")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+            dateFormatter.timeZone = TimeZone.current
+            for task in allTasks {
+                let dueString = task.dueDate != nil ? dateFormatter.string(from: task.dueDate!) : "nil"
+                print("- \(task.title), due: \(dueString), isComplete: \(task.isComplete), hasDueDate: \(task.hasDueDate)")
+            }
+            let overdueCount = allTasks.filter { task in
+                if let due = task.dueDate {
+                    return due < today && !task.isComplete
+                }
+                return false
+            }.count
+            let todayCount = allTasks.filter { task in
+                if let due = task.dueDate {
+                    return Calendar.current.isDate(due, inSameDayAs: today) && !task.isComplete
+                }
+                return false
+            }.count
+            let badgeCount = overdueCount + todayCount
+            print("[Debug] overdueCount: \(overdueCount), todayCount: \(todayCount), badgeCount: \(badgeCount)")
+            if #available(iOS 17.0, *) {
+                UNUserNotificationCenter.current().setBadgeCount(badgeCount)
+                print("[Badge] Set app icon badge to \(badgeCount) using UNUserNotificationCenter (iOS 17+)")
+            } else {
+                DispatchQueue.main.async {
+                    UIApplication.shared.applicationIconBadgeNumber = badgeCount
+                    print("[Badge] Set app icon badge to \(badgeCount) using UIApplication (pre-iOS 17)")
+                }
+            }
+        } catch {
+            print("[Badge] Error fetching tasks for badge: \(error)")
+        }
+    }
+
+    private func scheduleMidnightBadgeUpdate() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["MidnightBadgeUpdate"])
+        let calendar = Calendar.current
+        let now = Date()
+        guard let nextMidnight = calendar.nextDate(after: now, matching: DateComponents(hour: 0, minute: 0, second: 0), matchingPolicy: .nextTime) else {
+            print("[Badge] Could not calculate next midnight.")
+            return
+        }
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.sortDescriptors = []
+        do {
+            let allTasks = try viewContext.fetch(fetchRequest)
+            let tomorrow = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: now))!
+            let overdueCount = allTasks.filter { task in
+                if let due = task.dueDate {
+                    return due < tomorrow && !task.isComplete
+                }
+                return false
+            }.count
+            let todayCount = allTasks.filter { task in
+                if let due = task.dueDate {
+                    return calendar.isDate(due, inSameDayAs: tomorrow) && !task.isComplete
+                }
+                return false
+            }.count
+            let badgeCount = overdueCount + todayCount
+            let content = UNMutableNotificationContent()
+            content.badge = NSNumber(value: badgeCount)
+            content.sound = nil
+            content.body = ""
+            content.title = ""
+            let trigger = UNCalendarNotificationTrigger(dateMatching: calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: nextMidnight), repeats: false)
+            let request = UNNotificationRequest(identifier: "MidnightBadgeUpdate", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("[Badge] Error scheduling midnight badge update: \(error)")
+                } else {
+                    print("[Badge] Scheduled badge update at midnight with badge count: \(badgeCount)")
+                }
+            }
+        } catch {
+            print("[Badge] Error fetching tasks for midnight badge update: \(error)")
         }
     }
 }

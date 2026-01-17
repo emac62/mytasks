@@ -29,6 +29,13 @@ struct PersistenceController {
         container = NSPersistentContainer(name: "MyTasks")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        } else {
+            // Use App Group container for persistent store
+            if let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.ellen.MyTasks") {
+                let storeURL = appGroupURL.appendingPathComponent("MyTasks.sqlite")
+                let description = NSPersistentStoreDescription(url: storeURL)
+                container.persistentStoreDescriptions = [description]
+            }
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {

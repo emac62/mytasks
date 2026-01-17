@@ -6,19 +6,98 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9B5BA5F02F16BF76002A6244 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B48CDF12F15677B00A3F035 /* WidgetKit.framework */; };
+		9B5BA5F12F16BF76002A6244 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B48CDF32F15677B00A3F035 /* SwiftUI.framework */; };
+		9B5BA5FC2F16BF78002A6244 /* MyTasksWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9B5BA5EF2F16BF76002A6244 /* MyTasksWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9B5BA5FA2F16BF78002A6244 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B6415572F0EC1B0008A7750 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B5BA5EE2F16BF76002A6244;
+			remoteInfo = MyTasksWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9B48CE062F15677C00A3F035 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9B5BA5FC2F16BF78002A6244 /* MyTasksWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		9B48CDF12F15677B00A3F035 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		9B48CDF32F15677B00A3F035 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		9B48CE0C2F156A2C00A3F035 /* MyTasksWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyTasksWidgetExtension.entitlements; sourceTree = "<group>"; };
+		9B5BA5EF2F16BF76002A6244 /* MyTasksWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MyTasksWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B64155F2F0EC1B0008A7750 /* MyTasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B5BA5FD2F16BF78002A6244 /* Exceptions for "MyTasksWidget" folder in "MyTasksWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9B5BA5EE2F16BF76002A6244 /* MyTasksWidgetExtension */;
+		};
+		9B7FC73B2F17C43C002CD272 /* Exceptions for "MyTasks" folder in "MyTasks" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9B64155E2F0EC1B0008A7750 /* MyTasks */;
+		};
+		9B93AB072F16CD3E000D0740 /* Exceptions for "MyTasks" folder in "MyTasksWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MyTasks.xcdatamodeld,
+			);
+			target = 9B5BA5EE2F16BF76002A6244 /* MyTasksWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		9B5BA5F22F16BF76002A6244 /* MyTasksWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B5BA5FD2F16BF78002A6244 /* Exceptions for "MyTasksWidget" folder in "MyTasksWidgetExtension" target */,
+			);
+			path = MyTasksWidget;
+			sourceTree = "<group>";
+		};
 		9B6415612F0EC1B0008A7750 /* MyTasks */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B7FC73B2F17C43C002CD272 /* Exceptions for "MyTasks" folder in "MyTasks" target */,
+				9B93AB072F16CD3E000D0740 /* Exceptions for "MyTasks" folder in "MyTasksWidgetExtension" target */,
+			);
 			path = MyTasks;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9B5BA5EC2F16BF76002A6244 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B5BA5F12F16BF76002A6244 /* SwiftUI.framework in Frameworks */,
+				9B5BA5F02F16BF76002A6244 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B64155C2F0EC1B0008A7750 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -29,10 +108,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B48CDF02F15677B00A3F035 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B48CDF12F15677B00A3F035 /* WidgetKit.framework */,
+				9B48CDF32F15677B00A3F035 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9B6415562F0EC1B0008A7750 = {
 			isa = PBXGroup;
 			children = (
+				9B48CE0C2F156A2C00A3F035 /* MyTasksWidgetExtension.entitlements */,
 				9B6415612F0EC1B0008A7750 /* MyTasks */,
+				9B5BA5F22F16BF76002A6244 /* MyTasksWidget */,
+				9B48CDF02F15677B00A3F035 /* Frameworks */,
 				9B6415602F0EC1B0008A7750 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				9B64155F2F0EC1B0008A7750 /* MyTasks.app */,
+				9B5BA5EF2F16BF76002A6244 /* MyTasksWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +140,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9B5BA5EE2F16BF76002A6244 /* MyTasksWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B5BA5FE2F16BF78002A6244 /* Build configuration list for PBXNativeTarget "MyTasksWidgetExtension" */;
+			buildPhases = (
+				9B5BA5EB2F16BF76002A6244 /* Sources */,
+				9B5BA5EC2F16BF76002A6244 /* Frameworks */,
+				9B5BA5ED2F16BF76002A6244 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9B5BA5F22F16BF76002A6244 /* MyTasksWidget */,
+			);
+			name = MyTasksWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = MyTasksWidgetExtension;
+			productReference = 9B5BA5EF2F16BF76002A6244 /* MyTasksWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		9B64155E2F0EC1B0008A7750 /* MyTasks */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B64156F2F0EC1B1008A7750 /* Build configuration list for PBXNativeTarget "MyTasks" */;
@@ -55,10 +169,12 @@
 				9B64155B2F0EC1B0008A7750 /* Sources */,
 				9B64155C2F0EC1B0008A7750 /* Frameworks */,
 				9B64155D2F0EC1B0008A7750 /* Resources */,
+				9B48CE062F15677C00A3F035 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9B5BA5FB2F16BF78002A6244 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				9B6415612F0EC1B0008A7750 /* MyTasks */,
@@ -80,6 +196,9 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					9B5BA5EE2F16BF76002A6244 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					9B64155E2F0EC1B0008A7750 = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -100,11 +219,19 @@
 			projectRoot = "";
 			targets = (
 				9B64155E2F0EC1B0008A7750 /* MyTasks */,
+				9B5BA5EE2F16BF76002A6244 /* MyTasksWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9B5BA5ED2F16BF76002A6244 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B64155D2F0EC1B0008A7750 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +242,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9B5BA5EB2F16BF76002A6244 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B64155B2F0EC1B0008A7750 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +258,87 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9B5BA5FB2F16BF78002A6244 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B5BA5EE2F16BF76002A6244 /* MyTasksWidgetExtension */;
+			targetProxy = 9B5BA5FA2F16BF78002A6244 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		9B5BA5FF2F16BF78002A6244 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MyTasksWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = PDFNUL4XC5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyTasksWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyTasksWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.5;
+				PRODUCT_BUNDLE_IDENTIFIER = Ellen.MyTasks.MyTasksWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		9B5BA6002F16BF78002A6244 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MyTasksWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = PDFNUL4XC5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyTasksWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyTasksWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.5;
+				PRODUCT_BUNDLE_IDENTIFIER = Ellen.MyTasks.MyTasksWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		9B64156D2F0EC1B1008A7750 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -251,16 +465,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyTasks/MyTasks.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = PDFNUL4XC5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyTasks/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "My Tasks";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
@@ -281,7 +498,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -290,16 +507,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyTasks/MyTasks.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = PDFNUL4XC5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyTasks/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "My Tasks";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
@@ -320,13 +540,22 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9B5BA5FE2F16BF78002A6244 /* Build configuration list for PBXNativeTarget "MyTasksWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B5BA5FF2F16BF78002A6244 /* Debug */,
+				9B5BA6002F16BF78002A6244 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9B64155A2F0EC1B0008A7750 /* Build configuration list for PBXProject "MyTasks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
