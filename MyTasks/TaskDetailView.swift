@@ -20,7 +20,8 @@ struct TaskDetailView: View {
 
     // For edit mode
     @ObservedObject private var observedTask: Task
-
+    
+    
     // Single initializer
     init(task: Task? = nil) {
         self.task = task
@@ -37,6 +38,24 @@ struct TaskDetailView: View {
             _observedTask = ObservedObject(wrappedValue: Task(context: NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)))
         }
     }
+    
+    private func toggleComplete(for item: Task) {
+        withAnimation {
+            item.isComplete.toggle()
+            print("Toggled isComplete for \(item.title) to \(item.isComplete)")
+            do {
+                try viewContext.save()
+                WidgetCenter.shared.reloadAllTimelines()
+                print("WidgetCenter.reloadAllTimelines called after toggleComplete.")
+                updateAppBadge()
+                scheduleMidnightBadgeUpdate()
+            } catch {
+                let nsError = error as NSError
+                print("Error saving isComplete toggle: \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+
 
     var body: some View {
         VStack(spacing: 0) {
@@ -68,22 +87,31 @@ struct TaskDetailView: View {
                 Section(header: Text("Task Details")) {
                     if isNew {
                         TextField("Title", text: $title)
-                            .font(.system( size: 24))
-                            .foregroundColor(.accentColor)
+                            .font(.system(size: 24))
+                            .foregroundColor(.red)
                             .fontWeight(.bold)
                     } else {
-                        TextField("Title", text: $observedTask.title)
-                            .font(.system( size: 24))
-                            .foregroundColor(.accentColor)
-                            .fontWeight(.bold)
+                        HStack {
+                            Button(action: { toggleComplete(for: observedTask) }) {
+                                Image(systemName: observedTask.isComplete ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(observedTask.isComplete ? .green : .secondary)
+                                    .imageScale(.large)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            TextField("Title", text: $observedTask.title)
+                                .strikethrough(observedTask.isComplete)
+                                .font(.system(size: 24))
+                                .foregroundColor(observedTask.isComplete ? .green : .red)
+                                .fontWeight(.bold)
+                        }
                     }
                     Toggle("Set Due Date", isOn: isNew ? $hasDueDate : $observedTask.hasDueDate)
-                        .tint(.accentColor)
+                        .tint(.red)
                     if (isNew ? hasDueDate : observedTask.hasDueDate) {
                         DatePicker("Due Date", selection: isNew ? $dueDate : Binding(
                             get: { observedTask.dueDate ?? Date() },
                             set: { observedTask.dueDate = $0 }
-                        ), displayedComponents: .date)
+                        ), displayedComponents: .date).tint(.red)
                     }
                     Text("Notes")
                     if isNew {
@@ -274,4 +302,10 @@ struct TaskDetailView: View {
             print("[Badge] Error fetching tasks for midnight badge update: \(error)")
         }
     }
+}
+
+#Preview {
+    
+    TaskDetailView(task: nil)
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

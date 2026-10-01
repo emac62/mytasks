@@ -12,15 +12,23 @@ struct PersistenceController {
 
     @MainActor
     static let preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
+        let controller = PersistenceController(inMemory: true)
+        let viewContext = controller.container.viewContext
+        for i in 0..<5 {
+            let task = Task(context: viewContext)
+            task.title = "Sample Task #\(i + 1)"
+            task.createdOn = Date().addingTimeInterval(Double(-i) * 86400)
+            task.dueDate = Calendar.current.date(byAdding: .day, value: i == 0 ? -1 : i, to: Date())
+            task.isComplete = (i % 2 == 0)
+            task.hasDueDate = true
+        }
         do {
             try viewContext.save()
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
-        return result
+        return controller
     }()
 
     let container: NSPersistentContainer

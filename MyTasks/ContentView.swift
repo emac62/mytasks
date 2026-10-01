@@ -181,7 +181,7 @@ struct ContentView: View {
                         HStack {
                             Button(action: { toggleComplete(for: item) }) {
                                 Image(systemName: item.isComplete ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(item.isComplete ? .accentColor : .secondary)
+                                    .foregroundColor(item.isComplete ? .green : .secondary)
                                     .imageScale(.large)
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -397,4 +397,9 @@ struct ContentView: View {
         }
         return .primary
     }
+}
+
+#Preview {
+    ContentView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
